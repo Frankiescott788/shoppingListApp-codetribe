@@ -1,0 +1,85 @@
+{
+  "users": [
+    {
+      "id": "03e8",
+      "_id": "06b8577b-5dc8-40e4-966b-6a922ea5e52c",
+      "username": "frankie",
+      "email": "scottfrankie864@gmail.com",
+      "password": "test123"
+    }
+  ],
+  "shoppinglists": [
+    {
+      "id": "1237",
+      "_id": "06b8577b-5dc8-40e4-966b-6a922ea5e52c",
+      "name": "Bmw",
+      "itemQuantity": "1",
+      "tag": "Sport car",
+      "optional_notes": "no"
+    },
+    {
+      "id": "50ec",
+      "_id": "ce734f02-56d9-4a02-b927-7b1a286c2072",
+      "name": "rger",
+      "itemQuantity": "6",
+      "tag": "rgerg",
+      "optional_notes": "herh"
+    },
+    {
+      "id": "161c",
+      "_id": "ce734f02-56d9-4a02-b927-7b1a286c2072",
+      "name": "wrwgrw",
+      "itemQuantity": "4533",
+      "tag": "sff",
+      "optional_notes": "sbf"
+    },
+    {
+      "id": "5e75",
+      "_id": "ce734f02-56d9-4a02-b927-7b1a286c2072",
+      "name": "efwe",
+      "itemQuantity": "5",
+      "tag": "erh",
+      "optional_notes": "rgher"
+    },
+    {
+      "id": "ce80",
+      "_id": "ce734f02-56d9-4a02-b927-7b1a286c2072",
+      "name": "wrgt",
+      "itemQuantity": "44",
+      "tag": "eg",
+      "optional_notes": "weg"
+    },
+    {
+      "id": "1b2c",
+      "_id": "9073fe7e-9a94-40ef-97d9-181e1ecd27a7",
+      "name": "tegre",
+      "itemQuantity": "44",
+      "tag": "erghre",
+      "optional_notes": "erger"
+    },
+    {
+      "id": "0382",
+      "_id": "9073fe7e-9a94-40ef-97d9-181e1ecd27a7",
+      "name": "wefew",
+      "itemQuantity": "44",
+      "tag": "wrfw",
+      "optional_notes": "wf"
+    },
+    {
+      "id": "57cd",
+      "_id": "9073fe7e-9a94-40ef-97d9-181e1ecd27a7",
+      "name": "fwf",
+      "itemQuantity": "33",
+      "tag": "ef",
+      "optional_notes": "ewfew"
+    },
+    {
+      "id": "6cde",
+      "_id": "9073fe7e-9a94-40ef-97d9-181e1ecd27a7",
+      "name": "rgre",
+      "itemQuantity": "000000",
+      "tag": "",
+      "optional_notes": "wge"
+    }
+  ]
+}
