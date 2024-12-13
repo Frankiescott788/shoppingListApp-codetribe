@@ -1,5 +1,6 @@
 import { Button, Input, Spinner } from "@nextui-org/react";
 import useUserInfo from "../../hooks/useSignuser";
+import { Toaster } from "react-hot-toast";
 
 const Signup = () => {
 
@@ -16,7 +17,7 @@ const Signup = () => {
             You can create a free Celebration account in 2 minutes
           </p>
         </div>
-
+        <Toaster />
         <div className="relative max-w-md mx-auto mt-8 md:mt-16">
           <div className="overflow-hidden bg-white rounded-md border-2">
             <div className="px-4 py-6 sm:px-8 sm:py-7">

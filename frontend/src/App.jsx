@@ -16,6 +16,7 @@ import toast from "react-hot-toast";
 import useUserInfo from "./hooks/useSignuser";
 import FormList from "./components/Dashboard/listform";
 import Notfound from "./components/notfound";
+import Updateform from "./components/update/update";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,20 +31,21 @@ function App() {
     </div>
   </div> : (
     <BrowserRouter>
-      <Navbar />
+      {/* <Navbar /> */}
       
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/dashboard/*" element={authenticated ? <Dashboard /> : <Navigate to='/signin' />}>
           <Route path="home" element={<HomeDashboard />} />
           <Route path="create" element={<FormList />}/>
+          <Route path=":id" element={<Updateform />}/>
           <Route path="*" element={<Notfound />}/>
         </Route>
         <Route path="/signin" element={authenticated ? <Navigate to={'/dashboard/home'}/> : <Signin />} />
         <Route path="/signup" element={authenticated ? <Navigate to={'/dashboard/home'}/> : <Signup />} />
         <Route path="*" element={<Notfound />}/>
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 }

@@ -44,10 +44,18 @@ export default function useCrud() {
             const { status, data } = await axios.get('http://localhost:8085/shoppinglists');
             if(status === 200) {
                 dispatch(getLists(data));
-                console.log(lists)
+                console.log(lists);
+                localStorage.setItem('shopping_lists', JSON.stringify(data));
             }
         } catch (error) {
-            console.log(error)
+            if(error.message === 'Network Error') {
+                const cached_lists = JSON.parse(localStorage.getItem('shopping_lists'));
+                if(cached_lists) {
+                    dispatch(getLists(cached_lists));
+                } else {
+                    console.log("ff")
+                }
+            }
         }
     }
 

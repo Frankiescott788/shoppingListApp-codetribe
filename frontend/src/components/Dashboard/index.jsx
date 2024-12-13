@@ -6,23 +6,33 @@ import {
   DropdownItem,
   Dropdown,
   Button,
+  Image,
 } from "@nextui-org/react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import useUserInfo from "../../hooks/useSignuser";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 import { useCookies } from "react-cookie";
+import termsimg from "../../assets/Pictures/terms.svg";
 
 const Dashboard = () => {
   const { get_current_user, information } = useUserInfo();
   useEffect(() => {
-    get_current_user()
+    get_current_user();
   }, []);
+  const navigate = useNavigate();
 
-  const [cookies, setCookies, removeCookie ] = useCookies(['auth_token']);
+  const [cookies, setCookies, removeCookie] = useCookies(["auth_token"]);
+
+  const termscontainer = useRef();
+
+  const showTerms = () => {
+    termscontainer.current.classList.toggle("show-terms")
+  }
+
   return (
     <section>
-      <aside className="w-[12dvw] border-e-2 h-[95dvh] fixed bottom-0 left-0 top-0">
+      <aside className="w-[15rem] border-e-2  fixed bottom-0 left-0 top-0 hidden lg:block">
         <div className="flex gap-1 my-5 px-3">
           <div>
             <svg
@@ -46,19 +56,17 @@ const Dashboard = () => {
             </svg>
           </div>
 
-          <div className="text-2xl mt-1">
-            BasketBrain
-          </div>
+          <div className="text-2xl mt-1">BasketBrain</div>
         </div>
         <ul className="dash-list">
-          <li className="flex gap-2 py-2 px-3 bg-[#ffcfee] border-s-5 border-[#ffcfee] ">
+          <li className="flex gap-2 py-2 px-3 bg-[#ffcfee] border-s-5 border-[#ffcfee] mx-2 rounded-md">
             <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 width="20"
                 height="20"
-                color="#000000"
+                color="#ffffff"
                 fill="none"
               >
                 <path
@@ -83,19 +91,62 @@ const Dashboard = () => {
                 />
               </svg>
             </div>
-            <div>Dashboard</div>
+            <div className="text-white">Dashboard</div>
           </li>
-
-
         </ul>
+        <div className="absolute bottom-0 left-4 mb-3">
+          <Image src={termsimg} className="mb-2" />
+          <Button className="bg-[#ffafcc] text-white shadowed-btn" onClick={showTerms}>
+            Terms and conditions
+          </Button>
+        </div>
       </aside>
 
-      <div className="navbar fixed top-0 right-0 left-0 ms-[12dvw] ps-2 pe-[1dvw]">
-        <div className="bg-gray-200 p-3 my-2 rounded-md flex justify-between">
+      <div className="navbar fixed top-0 right-0 left-0 lg:ms-[15dvw] ps-2 pe-[1dvw]">
+        <div className=" p-3 my-2 flex justify-between border-b">
           <div className="w-[15dvw] ">
-            <Input type="search" placeholder="search..." />
+            <p className="mt-2 text-default-400">Dashboard</p>
+            <Button
+              className="bg-[#ffafcc] text-white px-3 mt-1 lg:hidden block"
+              onClick={() => navigate("/dashboard/create")}
+              size="sm"
+            >
+              New
+            </Button>
           </div>
-          <div>
+          <div className=" lg:hidden">
+            <Dropdown placement="bottom-start">
+              <DropdownTrigger>
+                <User
+                  as="button"
+                  avatarProps={{
+                    isBordered: true,
+                    src: "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?t=st=1725452902~exp=1725456502~hmac=f92e0b9404877c62e6ab01098297803d6f8ffbfbbcb4a3e438167ae709ba3a7f&w=826",
+                  }}
+                  className="transition-transform"
+                />
+              </DropdownTrigger>
+              <DropdownMenu aria-label="User Actions" variant="flat">
+                <DropdownItem key="profile" className="h-14 gap-2">
+                  <p className="font-bold">Signed in as</p>
+                  <p className="font-bold">{information[0]?.email}</p>
+                </DropdownItem>
+
+                <DropdownItem key="logout" className="text-center">
+                  <Button
+                    className="px-[5rem] bg-[#ffafcc] shadowed-btn text-white"
+                    onClick={() => {
+                      removeCookie("auth_token", { path: "/" });
+                    }}
+                  >
+                    {" "}
+                    Sign out{" "}
+                  </Button>
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
+          <div className="hidden lg:block">
             <Dropdown placement="bottom-start">
               <DropdownTrigger>
                 <User
@@ -114,18 +165,63 @@ const Dashboard = () => {
                   <p className="font-bold">Signed in as</p>
                   <p className="font-bold">{information[0]?.email}</p>
                 </DropdownItem>
-            
+
                 <DropdownItem key="logout" className="text-center">
-                  <Button className="px-[5rem] bg-[#ffafcc] shadowed-btn text-white" onClick={() => {
-                    removeCookie('auth_token', {path : '/'});
-                  }}> Sign out </Button>
+                  <Button
+                    className="px-[5rem] bg-[#ffafcc] shadowed-btn text-white"
+                    onClick={() => {
+                      removeCookie("auth_token", { path: "/" });
+                    }}
+                  >
+                    {" "}
+                    Sign out{" "}
+                  </Button>
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </div>
         </div>
       </div>
-      <div className="ms-[13dvw] mt-[10dvh] me-5">
+      <div className="fixed bottom-0 mb-[20rem] z-50   h-[5rem] left-0 right-0 p-3 terms" ref={termscontainer}>
+        <div className="bg-white p-4 ms-[15rem] me-10 border rounded-md">
+          <div className="flex justify-between">
+          <p className="text-2xl">
+            Terms and Conditions for{" "}
+            <span className="text-[#ffafcc]">BasketBrain</span>
+          </p>
+          <Button className="bg-[#ffafcc] text-white px-[5rem]" onClick={showTerms}>Close</Button>
+          </div>
+          
+          <p>1 . Account Creation</p>
+          <p className="text-default-400 text-sm mb-3">
+            When you sign up, you agree to provide accurate, current, and
+            complete information about yourself. You are responsible for
+            maintaining the confidentiality of your account information,
+            including your password, and for all activities that occur under
+            your account.
+          </p>
+          <p>2 . Use of the App</p>
+          <p className="text-default-400 text-sm mb-3">
+            The app is provided solely for personal, non-commercial use. You may
+            use the app to create and manage shopping lists, but you are
+            prohibited from using it for illegal or unauthorized activities.
+          </p>
+          <p>3 . Privacy and Data</p>
+          <p className="text-default-400 text-sm mb-3">
+            Your privacy is important to us. By using the app, you agree to our
+            Privacy Policy, which outlines how your personal data is collected,
+            stored, and used. The app may collect information such as your
+            shopping preferences and account details to improve the service.
+          </p>
+          <p>5 . Governing Law</p>
+          <p className="text-default-400 text-sm mb-3">
+            These terms are governed by the laws of the jurisdiction in which
+            the app is operated. Any disputes arising from these terms will be
+            subject to the exclusive jurisdiction of the courts in that region.
+          </p>
+        </div>
+      </div>
+      <div className="lg:ms-[13dvw] mt-[10dvh] me-5">
         <Outlet />
       </div>
     </section>

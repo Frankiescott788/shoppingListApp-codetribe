@@ -2,6 +2,7 @@ import { Button } from "@nextui-org/react";
 import hero_video from "../../assets/Videos/Banking-app-[remix].mp4";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Navbar from "../navbar";
 
 
 
@@ -10,6 +11,8 @@ const HeroSection = () => {
   const navigate = useNavigate();   
 
   return (
+    <>
+    <Navbar />
     <section>
       <div className="flex justify-center text-[#ffafcc]">
         <p className="flex gap-1 w-50 lil-text lg:mb-4 px-3 py-1 rounded-full ">
@@ -63,6 +66,7 @@ const HeroSection = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

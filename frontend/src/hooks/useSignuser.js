@@ -25,6 +25,16 @@ export default function useUserInfo () {
     const navigate = useNavigate()
 
     async function sign_up () {
+        setIsLoading(true)
+        if(!username || !email || !password) {
+            toast.error("All fields are required");
+            setIsLoading(false)
+            return;
+        }
+        if(!email.includes("@")) {
+            toast.error("Invalid Email");
+            return;
+        }
         try {
             const new_user = {
                 _id : v4(),
@@ -33,52 +43,60 @@ export default function useUserInfo () {
                 password
             };
                 
-            const { status } = await axios.post('http://localhost:8080/users', new_user);
+            const { status } = await axios.post('http://localhost:8085/users', new_user);
             setIsLoading(true)
             if(status === 201) {
                 setCookies('auth_token', new_user._id, {
                     path : '/',
-                    maxAge : 3600,
+                    maxAge : 7 * 24 * 60 * 60,
                     secure : true,
                 });
                 dispatch(authenticate(true));
                 setTimeout(() => {
                 navigate('/dashboard/home');
-                toast('ffff')
+              
                 }, 1000);
                 
             }
 
         } catch (error) {
             console.log(error);
+        } finally {
+            setIsLoading(false)
         }
     };
 
     const sign_in = async () => {
+        setIsLoading(true)
+        if(!email || !password) {
+            toast.error("All fields are required");
+            return;
+        }
+       
         try {
-            const res = await axios.get('http://localhost:8080/users');
+            const res = await axios.get('http://localhost:8085/users');
             const data = res.data;
-            setIsLoading(true)
             if(res.status === 200) {
                 const validate = data.filter(user => user.email === email && user.password === password);
                 if(validate.length !== 0) {
-                    setCookies('auth_token', validate.at(0)._id, {maxAge : 3600, secure : true, path : '/'});
+                    setCookies('auth_token', validate.at(0)._id, {maxAge : 36000000 * 24, secure : true, path : '/'});
                     setTimeout(() => {
                         navigate('/dashboard/home');
-
-                    }, 1000)
+                    }, 2000)
                 } else {
-                    setIsLoading(false)
+                    toast.error("Wrong email or password")                   
                 }
             }
         } catch (error) {
             console.log(error)
+        } finally {
+            setIsLoading(false)
         }
     }
 
     const get_current_user = async () => {
         try {
-            const res = await axios.get('http://localhost:8080/users');
+            const res = await axios.get('http://localhost:8085/users');
             const data = res.data;
             if(res.status === 200) {
                 const user = data.filter(user => user._id === cookies.auth_token);

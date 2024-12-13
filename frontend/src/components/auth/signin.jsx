@@ -1,6 +1,6 @@
 import { Button } from "@nextui-org/react";
 import useUserInfo from "../../hooks/useSignuser";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 const Signin = () => {
@@ -15,7 +15,7 @@ const Signin = () => {
           </p>
         </div>
 
-        {notify && toast('fff')}
+        <Toaster />
 
         <div className="relative max-w-md mx-auto mt-8 md:mt-16">
           <div className="overflow-hidden bg-white rounded-md border-3">
